@@ -28,7 +28,6 @@ export default class extends Component {
     });
     // const status = response.status;
     const body = await response.text();
-    console.log(response.ok)
     if(response.ok){
       return body;
     }
@@ -39,7 +38,6 @@ export default class extends Component {
   }
 
   render() {
-    console.log(this.state.user)
     if(this.state.user===undefined){
       return (
         <Fragment>

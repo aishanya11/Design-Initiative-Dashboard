@@ -84,7 +84,7 @@ export default function Header() {
         <OrganizationPanel data={jobs} />
       </TabPanel>
       <TabPanel value={value} index={0}>
-        <DashboardPanel data={jobs}/>
+        <DashboardPanel data={jobs} />
       </TabPanel>
     </div>
   );

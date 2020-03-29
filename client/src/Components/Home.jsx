@@ -53,37 +53,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Home() {
-const classes = useStyles();
-const [value, setValue] = React.useState(0);
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
 
-const handleChange = (event, newValue) => {
-  setValue(newValue);
-};
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-return (
-  <div className={classes.root}>
-    <AppBar position="static">
-      <Toolbar>
-        <BrushIcon />
-        <Typography variant="h6" className={classes.title}>
-          Codeuino
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <BrushIcon />
+          <Typography variant="h6" className={classes.title}>
+            Codeuino
         </Typography>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="SIGNUP" {...a11yProps(0)} />
-          <Tab label="SIGNIN" {...a11yProps(1)} />
-        </Tabs>
-      </Toolbar>
-    </AppBar>
-    <TabPanel value={value} index={0}>
-      <SignUpForm />
-    </TabPanel>
-    <TabPanel value={value} index={1}>
-      <LoginForm />
-    </TabPanel>
-  </div>
-);
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab label="SIGNUP" {...a11yProps(0)} />
+            <Tab label="SIGNIN" {...a11yProps(1)} />
+          </Tabs>
+        </Toolbar>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        <SignUpForm />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <LoginForm />
+      </TabPanel>
+    </div>
+  );
 }
