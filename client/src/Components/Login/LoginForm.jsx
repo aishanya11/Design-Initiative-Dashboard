@@ -14,7 +14,6 @@ export default function LoginForm(props) {
     return username.length > 0 && password.length > 0;
   }
 
-<<<<<<< HEAD
   async function handleSubmit (e) {
     e.preventDefault();
     const response = await fetch('/mentee/authenticate', {
@@ -34,10 +33,6 @@ export default function LoginForm(props) {
     else{
       console.log("error");
     }
-=======
-  function handleSubmit(event) {
-    event.preventDefault();
->>>>>>> ac62ccb2c78fbc472942af8930593b817fb7db04
   }
 
   return (

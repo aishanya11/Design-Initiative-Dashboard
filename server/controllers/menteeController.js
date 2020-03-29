@@ -43,7 +43,7 @@ module.exports = {
       if (err) {
         res.json({ success: false, msg: 'Failed to register user'+err});
       } else {
-        res.json({ success: true, msg: 'User registered' });
+        res.json({ success: true, msg: 'User registered'});
       }
     });
   },
