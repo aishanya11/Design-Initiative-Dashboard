@@ -11,13 +11,14 @@ export default class extends Component {
 
   componentDidMount(){
     this.aunthenticateUser()
-      .then(res => this.setState({user:JSON.parse(res).user}))
+      .then(res => {
+        this.setState({user:JSON.parse(res).user})
+      })
       .catch(err=>console.log(err))
   }
 
   aunthenticateUser = async() =>{
     let token = localStorage.getItem('JWTtoken');
-    console.log(token);
     const response = await fetch('/mentee/profile', {
       method: 'GET',
       headers: {
@@ -25,25 +26,31 @@ export default class extends Component {
         'Authorization': token
       }
     });
-    const status = response.status;
+    // const status = response.status;
     const body = await response.text();
-    if(status===200)
+    console.log(response.ok)
+    if(response.ok){
       return body;
+    }
+    else{
+      return "{}";
+    }
 
   }
 
   render() {
-    if(this.state.user==={}){
+    console.log(this.state.user)
+    if(this.state.user===undefined){
       return (
         <Fragment>
-          <Header />
+          <Home/>
         </Fragment>
       );
     }
     else{
       return (
         <Fragment>
-          <Home/>
+          <Header/>
         </Fragment>
       );
     }

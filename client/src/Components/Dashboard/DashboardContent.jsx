@@ -48,14 +48,23 @@ class DashboardContent extends Component
     });
     const body = await response.text();
     // console.log(body)
-    if(body)
+    if(response.ok){
       return body;
+    }
+    else{
+      return "{}";
+    }
 
 
   }
 
   render () {
-    console.log(this.state.user)
+    // console.log(this.state.user)
+    if(this.state.user===undefined){
+      return (
+        <h1>User doesnt exist</h1>
+      )
+    }
     return (
         <Card style={styles.root} >
           <Card elevation={3} />
