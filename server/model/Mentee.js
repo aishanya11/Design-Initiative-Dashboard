@@ -18,9 +18,9 @@ const MenteeSchema = Schema({
     email: {
         type: String,
         required: true,
-        validate(name){
-            if(validator.isEmail(email)){
-                throw new  Error("name can not be empty!");
+        validate(email){
+            if(!validator.isEmail(email)){
+                throw new  Error("email can not be empty!");
             }
         }
     },
@@ -29,7 +29,7 @@ const MenteeSchema = Schema({
         required: true,
         validate(username){
             if(validator.isEmpty(username)){
-                throw new  Error("name can not be empty!");
+                throw new  Error("username can not be empty!");
             }
         }
     },
@@ -38,7 +38,7 @@ const MenteeSchema = Schema({
         required: true,
         validate(password){
             if(validator.isEmpty(password)){
-                throw new  Error("name can not be empty!");
+                throw new  Error("password can not be empty!");
             }
         }
     },

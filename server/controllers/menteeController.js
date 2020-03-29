@@ -3,6 +3,28 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const HTTP_STATUS = require('../utility/constants');
 
+function getMenteeByUsername(username, callback) {
+  const query = { username: username }
+  Mentee.findOne(query, callback);
+}
+function addMentee(newMentee, callback) {
+  // console.log(newMentee);
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newMentee.password, salt, (err, hash) => {
+      if (err) throw err;
+      newMentee.password = hash;
+      console.log(newMentee);
+      
+      newMentee.save(callback);
+    });
+  });
+}
+function comparePassword(candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+    if (err) throw err;
+    callback(null, isMatch);
+  });
+}
 
 module.exports = {
 
@@ -13,10 +35,13 @@ module.exports = {
       username: req.body.username,
       password: req.body.password
     });
-
+    // console.log(req.body);
+    // console.log(newMentee);
+    
+    
     addMentee(newMentee, (err, user) => {
       if (err) {
-        res.json({ success: false, msg: 'Failed to register user' });
+        res.json({ success: false, msg: 'Failed to register user'+err});
       } else {
         res.json({ success: true, msg: 'User registered' });
       }
@@ -68,28 +93,10 @@ module.exports = {
     });
   },
 
-  getMenteeById : function (id, callback) {
+  getMenteeById: function (id, callback) {
     Mentee.findById(id, callback);
   },
-
-  getMenteeByUsername : function (username, callback) {
-    const query = { username: username }
-    Mentee.findOne(query, callback);
-  },
-
-  addMentee : function (newMentee, callback) {
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newMentee.password, salt, (err, hash) => {
-        if (err) throw err;
-        newMentee.password = hash;
-        newMentee.save(callback);
-      });
-    });
-  },
-  comparePassword : function (candidatePassword, hash, callback) {
-    bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-      if (err) throw err;
-      callback(null, isMatch);
-    });
-  },
+  getMenteeByUsername,
+  addMentee,
+  comparePassword
 }
