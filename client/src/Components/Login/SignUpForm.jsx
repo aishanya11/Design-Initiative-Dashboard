@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
 
 export default function Login(props) {
@@ -10,7 +10,7 @@ export default function Login(props) {
   const [confirmpassword, setConfirmPassword] = useState("");
 
   function validateForm() {
-    return password==confirmpassword && email.length > 0 && password.length > 0;
+    return password === confirmpassword && email.length > 0 && password.length > 0;
   }
 
   function handleSubmit(event) {
@@ -23,12 +23,12 @@ export default function Login(props) {
         <FormGroup controlId="name">
           <FormLabel>Name</FormLabel>
           <FormControl as="textarea" value={name} rows="1"
-          onChange={e => setName(e.target.value)} />
+            onChange={e => setName(e.target.value)} />
         </FormGroup>
         <FormGroup controlId="username">
           <FormLabel>Username</FormLabel>
           <FormControl as="textarea" value={username} rows="1"
-          onChange={e => setUsername(e.target.value)}/>
+            onChange={e => setUsername(e.target.value)} />
         </FormGroup>
         <FormGroup controlId="email" bsSize="large">
           <FormLabel>Email</FormLabel>
@@ -39,9 +39,11 @@ export default function Login(props) {
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
-        <FormGroup controlId="name">
+        <FormGroup controlId="password">
           <FormLabel>Password</FormLabel>
-          <FormControl as="textarea" value={password} rows="1" />
+          <FormControl as="textarea" value={password}
+            onChange={e => setPassword(e.target.value)}
+            type="password" />
         </FormGroup>
         <FormGroup controlId="confirmpassword" bsSize="large">
           <FormLabel>Confirm Password</FormLabel>

@@ -28,8 +28,12 @@ export default function Home() {
           <Button color="inherit">Sign In</Button>
         </Toolbar>
       </AppBar>
+      <div>
       <SignUpForm />
+      </div>
+      <div>
       <Login />
+      </div>
     </div>
   );
 }
