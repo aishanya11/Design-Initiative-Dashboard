@@ -16,7 +16,6 @@ export default function LoginForm(props) {
 
   async function handleSubmit (e) {
     e.preventDefault();
-    console.log("hello its me")
     const response = await fetch('/mentee/authenticate', {
       method: 'POST',
       headers: {
@@ -26,11 +25,9 @@ export default function LoginForm(props) {
     });
     const body = await response.text();
     responsePost = JSON.parse(body);
-    // console.log(body);
-    console.log(typeof(responsePost));
-    if(responsePost.success==true){
+    if(responsePost.success===true){
       console.log(responsePost)
-      localStorage.setItem("user",JSON.stringify(responsePost.user));
+      // localStorage.setItem("user",JSON.stringify(responsePost.user));
       localStorage.setItem("JWTtoken",responsePost.token)
     }
     else{

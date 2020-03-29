@@ -27,6 +27,30 @@ const styles = {
 
 class DashboardContent extends Component
 {
+  state={
+    user:{}
+  };
+
+  componentDidMount(){
+    this.aunthenticateUser()
+      .then(res => this.setState({user=res}))
+      .catch(err=>console.log(err))
+  }
+
+  aunthenticateUser = async() =>{
+    let token = localStorage.getItem('token');
+    const response = await fetch('/mentee/profile', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }
+    });
+    const body = await response.text();
+    this.setState({user : JSON.parse(body)});
+
+  }
+
   render () {
     return (
         <Card style={styles.root} >
@@ -47,7 +71,7 @@ class DashboardContent extends Component
                 component="h2"
                 align="center"
             >
-              Name
+              this.state.user.name
             </Typography>
             <Typography
                 style={styles.pos2}
@@ -56,7 +80,7 @@ class DashboardContent extends Component
                 component="p"
                 align="center"
             >
-              email.sample@gmail.com
+              this.state.user.email
             </Typography>
           </CardContent>
         </Card>

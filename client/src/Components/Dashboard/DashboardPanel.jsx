@@ -33,7 +33,7 @@ class DashboardPanel extends Component
             </CardContent>
           </Card>
           <div style={styles.comp}>
-            <DashboardContent />
+            <DashboardContent data = {this.props.data}/>
             <DashboardComponent data={this.props.data}/>
           </div>
         </div>

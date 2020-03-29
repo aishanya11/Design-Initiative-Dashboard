@@ -8,13 +8,53 @@ export default function Login(props) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
+  var responsePost = {};
 
   function validateForm() {
     return password === confirmpassword && email.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    const response = await fetch('/mentee/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, "username": username, "password": password, email }),
+    });
+    const body = await response.text();
+    responsePost = JSON.parse(body);
+    if (responsePost.success === true) {
+      console.log(responsePost)
+      loginHandle(username,password)
+        .then(()=>{})
+        .catch(err => console.log(err));
+    }
+    else {
+      console.log("error");
+    }
+  }
+
+  async function loginHandle(username,password ,callback){
+    const response = await fetch('/mentee/authenticate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"username":username,"password":password}),
+    });
+    const body = await response.text();
+    responsePost = JSON.parse(body);
+    if(responsePost.success===true){
+      console.log(responsePost)
+      // localStorage.setItem("user",JSON.stringify(responsePost.user));
+      localStorage.setItem("JWTtoken",responsePost.token);
+      callback();
+    }
+    else{
+      console.log("error");
+    }
   }
 
   return (
@@ -41,9 +81,11 @@ export default function Login(props) {
         </FormGroup>
         <FormGroup controlId="password">
           <FormLabel>Password</FormLabel>
-          <FormControl as="textarea" value={password}
+          <FormControl
+            value={password}
             onChange={e => setPassword(e.target.value)}
-            type="password" />
+            type="password"
+          />
         </FormGroup>
         <FormGroup controlId="confirmpassword" bsSize="large">
           <FormLabel>Confirm Password</FormLabel>
