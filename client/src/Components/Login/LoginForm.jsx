@@ -9,7 +9,7 @@ const divStyle = {
 export default function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  let responsePost = {};
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }

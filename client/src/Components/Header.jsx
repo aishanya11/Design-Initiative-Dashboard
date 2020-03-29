@@ -79,10 +79,11 @@ export default function Header() {
           </Tabs>
         </Toolbar>
       </AppBar>
-      <TabPanel value={value} index={0}>
+
+      <TabPanel value={value} index={1}>
         <OrganizationPanel data={jobs} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={0}>
         <DashboardPanel data={jobs}/>
       </TabPanel>
     </div>

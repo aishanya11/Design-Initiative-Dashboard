@@ -33,12 +33,12 @@ class DashboardContent extends Component
 
   componentDidMount(){
     this.aunthenticateUser()
-      .then(res => this.setState({user=res}))
+      .then(res => this.setState({user:JSON.parse(res).user}))
       .catch(err=>console.log(err))
   }
 
   aunthenticateUser = async() =>{
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('JWTtoken');
     const response = await fetch('/mentee/profile', {
       method: 'GET',
       headers: {
@@ -47,11 +47,15 @@ class DashboardContent extends Component
       }
     });
     const body = await response.text();
-    this.setState({user : JSON.parse(body)});
+    // console.log(body)
+    if(body)
+      return body;
+
 
   }
 
   render () {
+    console.log(this.state.user)
     return (
         <Card style={styles.root} >
           <Card elevation={3} />
@@ -71,7 +75,7 @@ class DashboardContent extends Component
                 component="h2"
                 align="center"
             >
-              this.state.user.name
+              {this.state.user.name}
             </Typography>
             <Typography
                 style={styles.pos2}
@@ -80,7 +84,7 @@ class DashboardContent extends Component
                 component="p"
                 align="center"
             >
-              this.state.user.email
+              {this.state.user.email}
             </Typography>
           </CardContent>
         </Card>
