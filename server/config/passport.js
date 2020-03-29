@@ -1,6 +1,6 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const Mentee = require('../model/Mentee');
+const Mentee = require('../controllers/menteeController');
 // const config = require('../config/database');
 
 module.exports = function(passport){
