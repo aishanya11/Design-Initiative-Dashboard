@@ -21,8 +21,8 @@ app.use(bodyParser.urlencoded({extended: false }));
 app.use(logger('tiny'));
 app.use(cookieParser());
 
-// connect to mongo 
-dbUtils.connectToDb();
+// connect to mongo
+
 
 // routes 
 app.use('/post', postRoutes);
@@ -46,6 +46,7 @@ app.use(function (err, req, res, next) {
 app.listen(PORT, ()=>{
   if(process.env.NODE_ENV !== 'production'){
     console.log(`Started listening on port [+]: ${PORT}`);
+    dbUtils.connectToDb();
   }
 });
 

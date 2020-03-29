@@ -7,8 +7,8 @@ const PostSchema = new Schema({
     type: String,
     trim: true,
     required: true,
-    validate(postTitle) {
-      if(validator.isEmpty(postTitle)) {
+    validate(title) {
+      if (validator.isEmpty(title)) {
         throw new Error("Post title is required!");
       }
     }
