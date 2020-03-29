@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl} from "react-bootstrap";
-//import "./Login.css";
+import { Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
 
-export default function Login(props) {
+
+export default function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,14 +18,12 @@ export default function Login(props) {
     <div className="Login">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="username" bsSize="large">
-          <FormControl
-            autoFocus
-            type="strnig"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
+          <FormLabel>Username</FormLabel>
+          <FormControl as="textarea" value={username} rows="1"
+            onChange={e => setUsername(e.target.value)} />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
+          <FormLabel>Password</FormLabel>
           <FormControl
             value={password}
             onChange={e => setPassword(e.target.value)}
