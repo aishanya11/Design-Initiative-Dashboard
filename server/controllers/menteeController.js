@@ -1,4 +1,4 @@
-const User = require('../model/user');
+const Mentee = require('../model/Mentee');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const HTTP_STATUS = require('../utility/constants');
@@ -6,28 +6,28 @@ const HTTP_STATUS = require('../utility/constants');
 
 module.exports = {
 
-  registerUser: async (req, res, next) => {
-    let newUser = new User({
+  registerMentee: async (req, res, next) => {
+    let newMentee = new Mentee({
       name: req.body.name,
       email: req.body.email,
       username: req.body.username,
       password: req.body.password
     });
 
-    addUser(newUser, (err, user) => {
+    addMentee(newMentee, (err, user) => {
       if (err) {
         res.json({ success: false, msg: 'Failed to register user' });
       } else {
         res.json({ success: true, msg: 'User registered' });
       }
     });
-  }
+  },
 
-  authenticateUser: async (req, res, next) => {
+  authenticateMentee: async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    getUserByUsername(username, (err, user) => {
+    getMenteeByUsername(username, (err, user) => {
       if (err) throw err;
       if (!user) {
         return res.json({ success: false, msg: 'User not found' });
@@ -55,9 +55,9 @@ module.exports = {
         }
       });
     });
-  }
+  },
 
-  getUserProfile: async (req, res, next) => {
+  getMenteeProfile: async (req, res, next) => {
     res.json({
       user: {
         _id: req.user._id,
@@ -66,32 +66,30 @@ module.exports = {
         email: req.user.email,
       }
     });
-  }
+  },
 
-  getUserById = function(id, callback){
-    User.findById(id, callback);
-  }
+  getMenteeById : function (id, callback) {
+    Mentee.findById(id, callback);
+  },
 
-  getUserByUsername = function(username, callback){
-    const query = {username: username}
-    User.findOne(query, callback);
-  }
+  getMenteeByUsername : function (username, callback) {
+    const query = { username: username }
+    Mentee.findOne(query, callback);
+  },
 
-  addUser = function(newUser, callback){
+  addMentee : function (newMentee, callback) {
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if(err) throw err;
-        newUser.password = hash;
-        newUser.save(callback);
+      bcrypt.hash(newMentee.password, salt, (err, hash) => {
+        if (err) throw err;
+        newMentee.password = hash;
+        newMentee.save(callback);
       });
     });
-  }
-
-  comparePassword = function(candidatePassword, hash, callback){
+  },
+  comparePassword : function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-      if(err) throw err;
+      if (err) throw err;
       callback(null, isMatch);
     });
-  }
-
+  },
 }

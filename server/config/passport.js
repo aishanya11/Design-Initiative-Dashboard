@@ -1,12 +1,12 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const Mentee = require('../models/mentee');
-const config = require('../config/database');
+const Mentee = require('../model/Mentee');
+// const config = require('../config/database');
 
 module.exports = function(passport){
   let opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-  opts.secretOrKey = config.secret;
+  opts.secretOrKey = process.env.SECRET;
   passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
     Mentee.getMenteeById(jwt_payload.data._id, (err, mentee) => {
       if(err){

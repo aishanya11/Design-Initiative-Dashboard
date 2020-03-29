@@ -7,7 +7,9 @@ const logger = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const postRoutes = require('../server/routes/post');
+const menteeRoutes = require('../server/routes/mentee');
 const cookieParser = require('cookie-parser');
 const HTTP_STATUS = require('../server/utility/constants');
 const PORT = process.env.PORT || "5000";
@@ -21,11 +23,16 @@ app.use(bodyParser.urlencoded({extended: false }));
 app.use(logger('tiny'));
 app.use(cookieParser());
 
-// connect to mongo
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 
 // routes 
 app.use('/post', postRoutes);
+app.use('/mentee',menteeRoutes);
 
 //ERROR HANDLER 
 // catch 404 and forward to error handler
