@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
 
+const divStyle = {
+  width: '500px',
+  margin: '100px 400px'
+};
 
 export default function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  var responsePost = {};
-
-
-
 
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
 
+<<<<<<< HEAD
   async function handleSubmit (e) {
     e.preventDefault();
     const response = await fetch('/mentee/authenticate', {
@@ -33,14 +34,18 @@ export default function LoginForm(props) {
     else{
       console.log("error");
     }
+=======
+  function handleSubmit(event) {
+    event.preventDefault();
+>>>>>>> ac62ccb2c78fbc472942af8930593b817fb7db04
   }
 
   return (
-    <div className="Login">
+    <div className="Login" style={divStyle}>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="username" bsSize="large">
           <FormLabel>Username</FormLabel>
-          <FormControl as="textarea" value={username} rows="1"
+          <FormControl autoFocus as="textarea" value={username} rows="1"
             onChange={e => setUsername(e.target.value)} />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">

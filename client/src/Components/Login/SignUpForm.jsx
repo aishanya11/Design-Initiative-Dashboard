@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 
+const divStyle = {
+  width: '500px',
+  margin: '25px 400px'
+};
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
@@ -58,11 +62,12 @@ export default function Login(props) {
   }
 
   return (
-    <div className="Login">
+    <div className="Login" style={divStyle}>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="name">
           <FormLabel>Name</FormLabel>
-          <FormControl as="textarea" value={name} rows="1"
+          <FormControl
+            autoFocus as="textarea" value={name} rows="1"
             onChange={e => setName(e.target.value)} />
         </FormGroup>
         <FormGroup controlId="username">
@@ -73,7 +78,6 @@ export default function Login(props) {
         <FormGroup controlId="email" bsSize="large">
           <FormLabel>Email</FormLabel>
           <FormControl
-            autoFocus
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
